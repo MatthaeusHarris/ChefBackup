@@ -1,12 +1,30 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
 require 'bundler/setup'
 require 'chef'
 require 'pp'
 
-Chef::Config.from_file("/home/matt/git/uberchef/.chef/knife/rb")
+Chef::Config.from_file("/home/matt/git/uberchef/.chef/knife.rb")
 rest = Chef::REST.new("http://10.42.0.3:4000")
 
-nodes = rest.get_rest("/nodes");
-
+nodes = rest.get_rest("/nodes")
 pp nodes
+nodes.each do |node, url|
+  pp rest.get_rest(url)
+end
+
+#users = rest.get_rest("/users")
+#pp users
+
+#databags = rest.get_rest("/data")
+#pp databags
+
+# roles = rest.get_rest("/roles")
+# pp roles
+# 
+# cookbooks = rest.get_rest("/cookbooks")
+# pp cookbooks
+# 
+# clients = rest.get_rest("/clients")
+# pp clients
